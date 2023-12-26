@@ -39,29 +39,16 @@ After=network-online.target
 [Service]
 Type=simple
 Restart=always
-RestartSec=15
+RestartSec=15min
 ExecStart=/usr/local/bin/$SCRIPT 
 
 [Install]
 WantedBy=default.target
 E-O-F
 
-  sudo tee /etc/systemd/user/mina-discord-bot.timer &>/dev/null << E-O-F
-  [Unit]
-Description=Mina Discord Bot Timer
-
-[Timer]
-OnCalendar=*:0/15
-Unit=mina-discord-bot.service
-Persistent=true
-
-[Install]
-WantedBy=default.target
-E-O-F
-
-systemctl --user start mina-discord-bot.timer
-systemctl --user enable mina-discord-bot.timer
-systemctl --user status mina-discord-bot.timer
+systemctl --user start mina-discord-bot.service
+systemctl --user enable mina-discord-bot.service
+systemctl --user status mina-discord-bot.service
 
 else
   # add the script to cronjob
